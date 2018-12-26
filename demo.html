@@ -1,0 +1,110 @@
+
+<html lang="en">
+ 
+
+  <body>
+
+                    <form  id="forms" name="forms" action="#" method="post" onsubmit="return matchpass();">
+			<div class="col-md-6 mb-15">
+				<label><i class="fa fa-user inp-icons"></i> Name</label>
+				<input type="text" name="name" id="name" class="form-inps">
+			</div>
+			
+			<div class="col-md-6 mb-15">
+			<label><i class="fa fa-envelope inp-icons-e"></i> Email ID</label>
+			<input type="email" name="email" id="email" class="form-inps">
+                       
+			</div>
+			
+			<div class="col-md-6 mb-15">
+				<label><i class="fa fa-mobile inp-mob"></i> Mobile No</label>
+					<div class="clearfix"></div>
+                               <div class="mob-cont"> <input type="text" name="mob"  maxlength="10"  autocomplete="off" id="mob" class="form-inps numeric"></div>
+                                 
+<div class="mob-send text-right">
+    <button type="button"  class="btn-send" >Send</button></div>
+<span id="err"></span>
+			</div>
+			
+			
+			<div class="col-md-6 mb-15">
+			<label><i class="fa fa-lock inp-otp"></i> OTP</label>
+                        <input type="password" name="otp" id="otp"  maxlength="6" class="form-inps" placeholder="****">
+                        <span id="err2"></span>
+			</div>
+				
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+				
+			<div class="col-md-12 text-center">
+				<input type="reset" value="Reset" class="reset-btn">
+				<input type="submit" name="submit" id="submit" value="Submit" class="sub-btn">				
+			</div>
+			</form>
+			<input type="hidden"  id="otpcheck">
+		</div>
+
+    <script>
+    function matchpass()
+    {
+
+        var name=document.getElementById("name").value;
+      
+        var email=document.getElementById("email").value;
+        var mob=document.getElementById("mob").value;
+        var otp=document.getElementById("otp").value;
+        if(name=='')
+        {
+            alert("pls enter User Name");
+            
+          return false;  
+        }
+        
+        if(email=='')
+        {
+            alert("pls enter Email");
+            return false; 
+        }
+           if(mob=='')
+        {
+            alert("pls enter Mobile number");
+            return false; 
+        }
+            if(otp=='')
+        {
+            alert("pls enter OTP number");
+            return false; 
+        }
+         
+         $.ajax({   
+        type:"post",
+        url: "target url to send here",
+        data:{ mobile:mob,otp:otp},
+        cache: false,
+        async : false,
+        success:function(data)
+        {
+           if(data==1)
+           {
+               document.getElementById("otpcheck").value=1;
+           }else{
+               
+               document.getElementById("err2").style.color = "red";
+               document.getElementById("err2").innerHTML = "invalid OTP Number ";
+             document.getElementById("otpcheck").value=0;
+           }
+         
+         
+        }
+        });
+        
+        if(document.getElementById("otpcheck").value==0){
+            return false;
+        }
+        
+    }
+  </script>
+
+  
+  </body>
+</html>
